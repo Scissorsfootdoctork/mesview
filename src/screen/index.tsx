@@ -7,8 +7,10 @@ import { useEffect, useState } from 'react'
 const sizeChange = () => {
     const design_width = 2560
     const design_height = 1600
+    console.log("🚀 ~ file: index.tsx ~ line 10 ~ sizeChange ~ design_height", design_height)
     const clientWidth = document.documentElement.clientWidth
     const clientHeight = document.documentElement.clientHeight
+    console.log("🚀 ~ file: index.tsx ~ line 13 ~ sizeChange ~ clientHeight", clientHeight)
     const screen = document.getElementsByClassName('screen')[0] as HTMLElement
     const Scale = clientWidth / clientHeight < design_width / design_height ? clientWidth / design_width : clientHeight / design_height
     if (!screen) return
