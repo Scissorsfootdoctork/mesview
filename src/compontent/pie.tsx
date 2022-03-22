@@ -1,43 +1,44 @@
 import { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
+import { MaterialInfo } from '../screen'
 
 const echarts = require('echarts')
 
-const option = {
-    color: ['#0091f7', '#51ace0', '#2a99da', '#038ad9'],
-    series: [
-        {
-            type: 'pie',
-            radius: '50%',
-            itemStyle: {
-                normal: {
-                    label: {
-                        textStyle: {
-                            color: '#51ACE0',
-                            fontSize: 20,
-                            fontWeight: 'bolder'
-                        }
-                    },
-                    labelLine: {
-                        lineStyle: {
-                            color: '#0092E5'
-                        }
-                    }
-                }
-            },
-            data: [
-                {value: 1048, name: '已拣货1000'},
-                {value: 735, name: '在途5000'},
-                {value: 580, name: '已收货3000'},
-                {value: 484, name: '已上架18000'}
-            ]
-        }
-    ]
-}
-
-export const Pie = () => {
+export const Pie = ({hasPicking, havegoods, inTransit, shelves}: MaterialInfo) => {
     const chartRef = useRef(null)
     let myChart: any = null
+
+    const option = {
+        color: ['#0091f7', '#51ace0', '#2a99da', '#038ad9'],
+        series: [
+            {
+                type: 'pie',
+                radius: '50%',
+                itemStyle: {
+                    normal: {
+                        label: {
+                            textStyle: {
+                                color: '#51ACE0',
+                                fontSize: 20,
+                                fontWeight: 'bolder'
+                            }
+                        },
+                        labelLine: {
+                            lineStyle: {
+                                color: '#0092E5'
+                            }
+                        }
+                    }
+                },
+                data: [
+                    {value: hasPicking, name: `已拣货${hasPicking}`},
+                    {value: inTransit, name: `在途${inTransit}`},
+                    {value: havegoods, name: `已收货${havegoods}`},
+                    {value: shelves, name: `已上架${shelves}`}
+                ]
+            }
+        ]
+    }
 
     const renderChart = () => {
         const chart = echarts.getInstanceByDom(chartRef.current)

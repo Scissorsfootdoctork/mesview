@@ -6,8 +6,49 @@ import { Circle } from '../../compontent/circle'
 import { Pie } from '../../compontent/pie'
 import { LineBar } from '../../compontent/ Line_Bar'
 import { Bar } from '../../compontent/bar'
+import { EfficiencyInfo, ScreenPages, TeamClothing } from '../index'
+import { useMemo } from 'react'
 
-export const MainMeter = () => {
+type DefaultValue = {
+    a: Array<string | undefined>
+    b: Array<string | undefined>
+}
+
+export type DefaultValuesAbout = {
+    a: Array<string | undefined>
+    b: Array<string | undefined>
+    c: Array<string | undefined>
+}
+
+
+export const MainMeter = (screenValue: ScreenPages) => {
+    const { warehouseInfo, materialInfo, basicWorkInfo, teamClothing = [], efficiencyInfo = [] } = screenValue
+    const defaultValue = useMemo((): DefaultValue => {
+        return (teamClothing as TeamClothing[]).reduce((prev: DefaultValue, item: TeamClothing) => {
+            const { teamName, teamNum } = item
+            prev.a.push(teamName)
+            prev.b.push(teamNum)
+            return prev
+        }, {
+            a: [],
+            b: []
+        })
+    }, [teamClothing])
+
+    const DefaultValues = useMemo((): DefaultValuesAbout => {
+        return (efficiencyInfo as EfficiencyInfo[]).reduce((prev: DefaultValuesAbout, item: EfficiencyInfo) => {
+            const { groupName, groupEffict, completionRate } = item
+            prev.a.push(groupName)
+            prev.b.push(groupEffict)
+            prev.c.push(completionRate)
+            return prev
+        }, {
+            a: [],
+            b: [],
+            c: []
+        })
+    }, [efficiencyInfo])
+
     return <Container>
         <TopContainer>
             <TopContainerItem>
@@ -17,22 +58,22 @@ export const MainMeter = () => {
                 <FirstContainer>
                     <NextContainer>
                         <HexagonContainer>
-                            <Hexagon>10</Hexagon>
+                            <Hexagon>{warehouseInfo?.forgoods}</Hexagon>
                             <HexagonTitle>待收货</HexagonTitle>
                         </HexagonContainer>
                         <HexagonContainer>
-                            <Hexagon>10</Hexagon>
-                            <HexagonTitle>待收货</HexagonTitle>
+                            <Hexagon>{warehouseInfo?.sendGoods}</Hexagon>
+                            <HexagonTitle>待上架</HexagonTitle>
                         </HexagonContainer>
                     </NextContainer>
                     <NextContainer>
                         <HexagonContainer>
-                            <Hexagon>10</Hexagon>
-                            <HexagonTitle>待收货</HexagonTitle>
+                            <Hexagon>{warehouseInfo?.picking}</Hexagon>
+                            <HexagonTitle>待拣货</HexagonTitle>
                         </HexagonContainer>
                         <HexagonContainer>
-                            <Hexagon>10</Hexagon>
-                            <HexagonTitle>待收货</HexagonTitle>
+                            <Hexagon>{warehouseInfo?.stayon}</Hexagon>
+                            <HexagonTitle>代发货</HexagonTitle>
                         </HexagonContainer>
                     </NextContainer>
                 </FirstContainer>
@@ -42,7 +83,7 @@ export const MainMeter = () => {
                     原辅料跟踪
                 </TopContainerItemTitle>
                 <PieContainer>
-                    <Pie/>
+                    <Pie {...materialInfo} />
                 </PieContainer>
             </TopContainerItem>
             <TopContainerItem>
@@ -50,29 +91,29 @@ export const MainMeter = () => {
                     厂内设备物联状态
                 </TopContainerItemTitle>
                 <CircleRow>
-                    <Circle rgb={'#009cf7'} title={'设备总数'} svg_number={'122'}/>
-                    <Circle rgb={'#00ffd9'} title={'运行数量'} svg_number={'1'}/>
-                    <Circle rgb={'#ff4b5a'} title={'故障总数'} svg_number={'122'}/>
+                    <Circle rgb={'#009cf7'} title={'设备总数'} svg_number={basicWorkInfo?.devicesNum} />
+                    <Circle rgb={'#00ffd9'} title={'运行数量'} svg_number={basicWorkInfo?.runNum} />
+                    <Circle rgb={'#ff4b5a'} title={'故障总数'} svg_number={basicWorkInfo?.faultNum} />
                 </CircleRow>
                 <CircleRow>
-                    <Circle rgb={'#ff9e5c'} title={'待机总数'} svg_number={'122'}/>
-                    <Circle rgb={'#e9faff'} title={'关机总数'} svg_number={'122'}/>
+                    <Circle rgb={'#ff9e5c'} title={'待机总数'} svg_number={basicWorkInfo?.standbyNum} />
+                    <Circle rgb={'#e9faff'} title={'关机总数'} svg_number={basicWorkInfo?.turnOffNum} />
                 </CircleRow>
             </TopContainerItem>
         </TopContainer>
         <MiddleContainer>
             <MiddleContainerItem>
-                <LineBarTitle>LineBarTitle</LineBarTitle>
+                <LineBarTitle>各班组服装在制数</LineBarTitle>
                 <LineBarContainer>
-                    <Bar/>
+                    <Bar defaultvalue={defaultValue} />
                 </LineBarContainer>
             </MiddleContainerItem>
         </MiddleContainer>
         <MiddleContainer>
             <MiddleContainerItem>
-                <LineBarTitle>LineBarTitle</LineBarTitle>
+                <LineBarTitle>各班组人均效率/计划完成率</LineBarTitle>
                 <LineBarContainer>
-                    <LineBar/>
+                    <LineBar DefaultValues={DefaultValues} />
                 </LineBarContainer>
             </MiddleContainerItem>
         </MiddleContainer>

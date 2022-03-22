@@ -1,135 +1,63 @@
 import styled from '@emotion/styled'
 import { WaterPolo } from '../../compontent/water_polo'
 import imgUrl from '../../assets/packLeftBg.png'
-import { TrackingInfo } from '../index'
+import { ScreenPages } from '../index'
 
-export const LeftMeter = ({annualTarget, completeNumber, theoryNumber}: TrackingInfo) => {
-    return <LeftMeterContainer>
-        <WaterContainer>
-            <WaterHeader>今日订单追踪</WaterHeader>
-            <PutNullArea>
-                <WaterPolo/>
-                <WaterPoloTitle>
-                    <WaterPoloTitleItem>
-                        <WaterPoloTitleItemName>计划数量</WaterPoloTitleItemName>
-                        <WaterPoloTitleItemDetail>{annualTarget || 0}</WaterPoloTitleItemDetail>
-                    </WaterPoloTitleItem>
-                    <WaterPoloTitleItem>
-                        <WaterPoloTitleItemName>完成数量</WaterPoloTitleItemName>
-                        <WaterPoloTitleItemDetail>{completeNumber || 0}</WaterPoloTitleItemDetail>
-                    </WaterPoloTitleItem>
-                    <WaterPoloTitleItem>
-                        <WaterPoloTitleItemName>理论数量</WaterPoloTitleItemName>
-                        <WaterPoloTitleItemDetail>{theoryNumber || 0}</WaterPoloTitleItemDetail>
-                    </WaterPoloTitleItem>
-                </WaterPoloTitle>
-            </PutNullArea>
-        </WaterContainer>
-        <TableContainer>
-            <TableHeader>今日生产单追踪</TableHeader>
-            <PutNullArea>
-                <Table>
-                    <Thead>
-                        <TheadTr>
-                            <TheadTrTh>序号</TheadTrTh>
-                            <TheadTrTh>订单号</TheadTrTh>
-                            <TheadTrTh>订单量</TheadTrTh>
-                            <TheadTrTh>裁剪数量</TheadTrTh>
-                            <TheadTrTh>车缝</TheadTrTh>
-                        </TheadTr>
-                    </Thead>
-                    <tbody>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    <tr>
-                        <Td color={'#047DBE'} fontSize={2}>1</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                        <Td>$100</Td>
-                    </tr>
-                    </tbody>
-                </Table>
-            </PutNullArea>
-        </TableContainer>
-    </LeftMeterContainer>
+export const LeftMeter = (screenValue: ScreenPages) => {
+  const { trackingInfo, repairOrder } = screenValue
+  return <LeftMeterContainer>
+    <WaterContainer>
+      <WaterHeader>今日订单追踪</WaterHeader>
+      <PutNullArea>
+        <WaterPolo />
+        <WaterPoloTitle>
+          <WaterPoloTitleItem>
+            <WaterPoloTitleItemName>计划数量</WaterPoloTitleItemName>
+            <WaterPoloTitleItemDetail>{trackingInfo?.annualTarget || 0}</WaterPoloTitleItemDetail>
+          </WaterPoloTitleItem>
+          <WaterPoloTitleItem>
+            <WaterPoloTitleItemName>完成数量</WaterPoloTitleItemName>
+            <WaterPoloTitleItemDetail>{trackingInfo?.completeNumber || 0}</WaterPoloTitleItemDetail>
+          </WaterPoloTitleItem>
+          <WaterPoloTitleItem>
+            <WaterPoloTitleItemName>理论数量</WaterPoloTitleItemName>
+            <WaterPoloTitleItemDetail>{trackingInfo?.theoryNumber || 0}</WaterPoloTitleItemDetail>
+          </WaterPoloTitleItem>
+        </WaterPoloTitle>
+      </PutNullArea>
+    </WaterContainer>
+    <TableContainer>
+      <TableHeader>今日生产单追踪</TableHeader>
+      <PutNullArea>
+        <Table>
+          <Thead>
+            <TheadTr>
+              <TheadTrTh>序号</TheadTrTh>
+              <TheadTrTh>订单号</TheadTrTh>
+              <TheadTrTh>订单量</TheadTrTh>
+              <TheadTrTh>裁剪数量</TheadTrTh>
+              <TheadTrTh>车缝</TheadTrTh>
+            </TheadTr>
+          </Thead>
+          <tbody>
+            {
+              repairOrder?.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <Td color={'#047DBE'} fontSize={2}>{index + 1}</Td>
+                    <Td>{item.orderNumber}</Td>
+                    <Td>{item.orderQuantity}</Td>
+                    <Td>{item.sewing}</Td>
+                    <Td>{item.tailoringNum}</Td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </Table>
+      </PutNullArea>
+    </TableContainer>
+  </LeftMeterContainer>
 }
 
 const LeftMeterContainer = styled.div`
@@ -214,7 +142,8 @@ const PutNullArea = styled.div`
 `
 const Table = styled.table`
   width: 100%;
-  height: 40rem;
+  max-height: 40rem;
+  overflow: hidden;
   border-collapse: collapse;
   color: #35CCE4;
 `
@@ -230,7 +159,7 @@ const TheadTrTh = styled.th`
 `
 const Td = styled.td<{ color?: string, fontSize?: number }>`
   font-size: ${props => props.fontSize ? props.fontSize + 'rem' : 1.8 + 'rem'};
-  padding: 0.9rem 0;
+  padding: 1rem 0;
   text-align: center;
   border: 1px solid #047DBE;
   color: ${props => props.color ? props.color : ''};

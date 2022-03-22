@@ -2,43 +2,65 @@ import { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 
 const echarts = require('echarts')
-const option = {
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'shadow'
-        }
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis: [
-        {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            axisTick: {
-                alignWithLabel: true
+export const Bar = ({defaultvalue}: any) => {
+    console.log(defaultvalue)
+    const option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
             }
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value'
-        }
-    ],
-    series: [
-        {
-            name: 'Direct',
-            type: 'bar',
-            barWidth: '60%',
-            data: [10, 52, 200, 334, 390, 330, 220]
-        }
-    ]
-}
-export const Bar = () => {
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '15%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: defaultvalue?.a,
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+
+        series: [
+            {
+                name: 'Direct',
+                type: 'bar',
+                barWidth: '40%',
+                itemStyle: {
+                    normal: {
+                        label: {
+                            position: 'top',
+                            show: true,
+                            textStyle: {
+                                color: '#71C8B1',
+                                fontSize: '22'
+                            }
+                        },
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1,
+                            [
+                                {offset: 0, color: '#06B5D7'},                   //柱图渐变色
+                                {offset: 0.5, color: '#44C0C1'},                 //柱图渐变色
+                                {offset: 1, color: '#71C8B1'}                   //柱图渐变色
+                            ]
+                        )
+                    }
+                },
+                data: defaultvalue?.b
+            }
+        ]
+    }
     const chartRef = useRef(null)
     let myChart: any = null
 
@@ -57,7 +79,7 @@ export const Bar = () => {
         return () => {
             option && myChart.setOption(option)
         }
-    })
+    }, [defaultvalue])
 
     return <ContainerGauge ref={chartRef}/>
 }

@@ -10,7 +10,7 @@ export const http = async (endpoint: string, {data, headers, ...customConfig}: C
     const config = {
         method: 'GET',
         headers: {
-            token: 'aca17eb8dee081eb9bff01cb1e0e2504',
+            token: 'c42424672ec75ad837ee9e7f4e70f18e',
             'ContentType': data ? 'application/json' : ''
         },
         ...customConfig
